@@ -13,7 +13,7 @@ export class PostsService {
     private readonly postRepository: EntityRepository<PostEntity>,
   ) {}
 
-  async getPosts() {
+  getPosts() {
     return this.postRepository.findAll();
   }
 

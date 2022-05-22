@@ -5,7 +5,7 @@ import {
   Get,
   Param,
   Post,
-  Put,
+  Patch,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import FindOneParams from '../utils/findOneParams';
@@ -31,7 +31,7 @@ export default class PostsController {
     return this.postsService.createPost(post);
   }
 
-  @Put(':id')
+  @Patch(':id')
   async updatePost(
     @Param() { id }: FindOneParams,
     @Body() post: UpdatePostDto,

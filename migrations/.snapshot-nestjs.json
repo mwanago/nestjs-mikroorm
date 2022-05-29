@@ -183,6 +183,15 @@
           "primary": false,
           "nullable": false,
           "mappedType": "string"
+        },
+        "author_id": {
+          "name": "author_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
         }
       },
       "name": "post_entity",
@@ -199,7 +208,20 @@
         }
       ],
       "checks": [],
-      "foreignKeys": {}
+      "foreignKeys": {
+        "post_entity_author_id_foreign": {
+          "constraintName": "post_entity_author_id_foreign",
+          "columnNames": [
+            "author_id"
+          ],
+          "localTableName": "public.post_entity",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.user",
+          "updateRule": "cascade"
+        }
+      }
     }
   ]
 }

@@ -5,6 +5,7 @@ import PostEntity from './post.entity';
 import PostNotFoundException from './exceptions/postNotFound.exception';
 import CreatePostDto from './dto/createPost.dto';
 import UpdatePostDto from './dto/updatePost.dto';
+import User from '../users/user.entity';
 
 @Injectable()
 export class PostsService {
@@ -27,8 +28,12 @@ export class PostsService {
     return post;
   }
 
-  async createPost(post: CreatePostDto) {
-    const newPost = await this.postRepository.create(post);
+  async createPost(post: CreatePostDto, user: User) {
+    const postData = {
+      ...post,
+      author: user,
+    };
+    const newPost = await this.postRepository.create(postData);
     await this.postRepository.persistAndFlush(newPost);
     return newPost;
   }

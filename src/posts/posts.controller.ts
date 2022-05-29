@@ -6,11 +6,15 @@ import {
   Param,
   Post,
   Patch,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import FindOneParams from '../utils/findOneParams';
 import CreatePostDto from './dto/createPost.dto';
 import UpdatePostDto from './dto/updatePost.dto';
+import JwtAuthenticationGuard from '../authentication/jwt-authentication.guard';
+import RequestWithUser from '../authentication/requestWithUser.interface';
 
 @Controller('posts')
 export default class PostsController {
@@ -27,11 +31,16 @@ export default class PostsController {
   }
 
   @Post()
-  async createPost(@Body() post: CreatePostDto) {
-    return this.postsService.createPost(post);
+  @UseGuards(JwtAuthenticationGuard)
+  async createPost(
+    @Body() post: CreatePostDto,
+    @Req() request: RequestWithUser,
+  ) {
+    return this.postsService.createPost(post, request.user);
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthenticationGuard)
   async updatePost(
     @Param() { id }: FindOneParams,
     @Body() post: UpdatePostDto,
@@ -40,6 +49,7 @@ export default class PostsController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthenticationGuard)
   async deletePost(@Param() { id }: FindOneParams) {
     return this.postsService.deletePost(Number(id));
   }

@@ -15,7 +15,9 @@ export class PostsService {
   ) {}
 
   getPosts() {
-    return this.postRepository.findAll();
+    return this.postRepository.findAll({
+      populate: ['author', 'author.address'],
+    });
   }
 
   async getPostById(id: number) {

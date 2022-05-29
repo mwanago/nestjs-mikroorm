@@ -15,6 +15,61 @@
           "nullable": false,
           "mappedType": "integer"
         },
+        "street": {
+          "name": "street",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "country": {
+          "name": "country",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        }
+      },
+      "name": "address",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "address_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
         "email": {
           "name": "email",
           "type": "varchar(255)",
@@ -41,6 +96,15 @@
           "primary": false,
           "nullable": false,
           "mappedType": "string"
+        },
+        "address_id": {
+          "name": "address_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
         }
       },
       "name": "user",
@@ -56,6 +120,15 @@
           "unique": true
         },
         {
+          "columnNames": [
+            "address_id"
+          ],
+          "composite": false,
+          "keyName": "user_address_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
           "keyName": "user_pkey",
           "columnNames": [
             "id"
@@ -66,7 +139,21 @@
         }
       ],
       "checks": [],
-      "foreignKeys": {}
+      "foreignKeys": {
+        "user_address_id_foreign": {
+          "constraintName": "user_address_id_foreign",
+          "columnNames": [
+            "address_id"
+          ],
+          "localTableName": "public.user",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.address",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      }
     },
     {
       "columns": {

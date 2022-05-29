@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
+import Address from '../users/address.entity';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
         port: configService.get('POSTGRES_PORT'),
         type: 'postgresql',
         autoLoadEntities: true,
+        entities: [Address],
       }),
     }),
   ],

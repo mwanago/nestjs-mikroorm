@@ -13,9 +13,14 @@ class UsersService {
   ) {}
 
   async getByEmail(email: string) {
-    const user = await this.userRepository.findOne({
-      email,
-    });
+    const user = await this.userRepository.findOne(
+      {
+        email,
+      },
+      {
+        populate: ['address'],
+      },
+    );
     if (!user) {
       throw new UserNotFoundException();
     }
@@ -23,9 +28,14 @@ class UsersService {
   }
 
   async getById(id: number) {
-    const user = await this.userRepository.findOne({
-      id,
-    });
+    const user = await this.userRepository.findOne(
+      {
+        id,
+      },
+      {
+        populate: ['address'],
+      },
+    );
     if (!user) {
       throw new UserNotFoundException();
     }

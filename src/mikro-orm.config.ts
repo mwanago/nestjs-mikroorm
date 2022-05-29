@@ -2,11 +2,12 @@ import PostEntity from './posts/post.entity';
 import { Options } from '@mikro-orm/core';
 import { ConfigService } from '@nestjs/config';
 import User from './users/user.entity';
+import Address from './users/address.entity';
 
 const configService = new ConfigService();
 
 const MikroOrmConfig: Options = {
-  entities: [PostEntity, User],
+  entities: [PostEntity, User, Address],
   type: 'postgresql',
   dbName: configService.get('POSTGRES_DB'),
   user: configService.get('POSTGRES_USER'),

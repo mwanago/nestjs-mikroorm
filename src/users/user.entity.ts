@@ -1,20 +1,24 @@
-import { Entity, Property, PrimaryKey } from '@mikro-orm/core';
+import { Entity, Property, PrimaryKey, OneToOne } from '@mikro-orm/core';
 import { Exclude } from 'class-transformer';
+import Address from './address.entity';
 
 @Entity()
 class User {
   @PrimaryKey()
-  public id: number;
+  id: number;
 
   @Property({ unique: true })
-  public email: string;
+  email: string;
 
   @Property()
-  public name: string;
+  name: string;
 
   @Property()
   @Exclude()
-  public password: string;
+  password: string;
+
+  @OneToOne({ nullable: true })
+  address?: Address;
 }
 
 export default User;

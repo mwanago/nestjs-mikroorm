@@ -19,12 +19,10 @@ export class AuthenticationService {
   public async register(registrationData: RegisterDto) {
     const hashedPassword = await bcrypt.hash(registrationData.password, 10);
     try {
-      const createdUser = await this.usersService.create({
+      return await this.usersService.create({
         ...registrationData,
         password: hashedPassword,
       });
-      createdUser.password = undefined;
-      return createdUser;
     } catch (error: unknown) {
       if (isRecord(error) && error.code === PostgresErrorCode.UniqueViolation) {
         throw new HttpException(

@@ -1,5 +1,4 @@
 import { Entity, Property, PrimaryKey, OneToOne } from '@mikro-orm/core';
-import { Exclude } from 'class-transformer';
 import Address from './address.entity';
 
 @Entity()
@@ -13,8 +12,7 @@ class User {
   @Property()
   name: string;
 
-  @Property()
-  @Exclude()
+  @Property({ hidden: true })
   password: string;
 
   @OneToOne({ nullable: true })

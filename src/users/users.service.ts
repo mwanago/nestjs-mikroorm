@@ -18,7 +18,7 @@ class UsersService {
         email,
       },
       {
-        populate: ['address'],
+        populate: ['address', 'posts'],
       },
     );
     if (!user) {

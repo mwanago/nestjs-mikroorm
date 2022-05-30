@@ -3,9 +3,10 @@ import { PostsService } from './posts.service';
 import PostsController from './posts.controller';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import PostEntity from './post.entity';
+import { UsersModule } from '../users/users.module';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([PostEntity])],
+  imports: [MikroOrmModule.forFeature([PostEntity]), UsersModule],
   controllers: [PostsController],
   providers: [PostsService],
 })

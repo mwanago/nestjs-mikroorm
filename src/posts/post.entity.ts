@@ -1,5 +1,13 @@
-import { Entity, Property, PrimaryKey, ManyToOne } from '@mikro-orm/core';
+import {
+  Entity,
+  Property,
+  PrimaryKey,
+  ManyToOne,
+  Collection,
+  ManyToMany,
+} from '@mikro-orm/core';
 import User from '../users/user.entity';
+import Category from '../categories/category.entity';
 
 @Entity()
 class PostEntity {
@@ -14,6 +22,9 @@ class PostEntity {
 
   @ManyToOne()
   author: User;
+
+  @ManyToMany(() => Category)
+  categories: Collection<Category>;
 }
 
 export default PostEntity;

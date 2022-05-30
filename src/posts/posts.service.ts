@@ -16,7 +16,7 @@ export class PostsService {
 
   getPosts() {
     return this.postRepository.findAll({
-      populate: ['author', 'author.address'],
+      populate: ['author', 'author.address', 'categories'],
     });
   }
 

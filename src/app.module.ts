@@ -4,6 +4,7 @@ import * as Joi from 'joi';
 import { DatabaseModule } from './database/database.module';
 import { PostsModule } from './posts/posts.module';
 import { AuthenticationModule } from './authentication/authentication.module';
+import CategoriesModule from './categories/categories.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
     DatabaseModule,
     PostsModule,
     AuthenticationModule,
+    CategoriesModule,
   ],
   controllers: [],
   providers: [],

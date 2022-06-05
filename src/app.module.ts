@@ -17,6 +17,7 @@ import CategoriesModule from './categories/categories.module';
         POSTGRES_DB: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION_TIME: Joi.string().required(),
+        SHOULD_DEBUG_SQL: Joi.boolean(),
       }),
     }),
     DatabaseModule,

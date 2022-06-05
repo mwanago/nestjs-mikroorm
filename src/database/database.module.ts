@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import Address from '../users/address.entity';
+import { FlushMode } from '@mikro-orm/core/enums';
 
 @Module({
   imports: [
@@ -17,6 +18,8 @@ import Address from '../users/address.entity';
         type: 'postgresql',
         autoLoadEntities: true,
         entities: [Address],
+        flushMode: FlushMode.COMMIT,
+        debug: configService.get('SHOULD_DEBUG_SQL'),
       }),
     }),
   ],

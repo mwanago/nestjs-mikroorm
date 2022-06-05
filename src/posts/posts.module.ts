@@ -9,5 +9,6 @@ import { UsersModule } from '../users/users.module';
   imports: [MikroOrmModule.forFeature([PostEntity]), UsersModule],
   controllers: [PostsController],
   providers: [PostsService],
+  exports: [PostsService],
 })
 export class PostsModule {}

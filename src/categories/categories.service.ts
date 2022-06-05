@@ -5,12 +5,16 @@ import CategoryNotFoundException from './exceptions/categoryNotFound.exception';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository, wrap } from '@mikro-orm/core';
 import Category from './category.entity';
+import { PostsService } from '../posts/posts.service';
+import { EntityManager } from '@mikro-orm/postgresql';
 
 @Injectable()
 export default class CategoriesService {
   constructor(
     @InjectRepository(Category)
     private readonly categoryRepository: EntityRepository<Category>,
+    private readonly postsService: PostsService,
+    private readonly entityManager: EntityManager,
   ) {}
 
   getAllCategories() {
@@ -40,8 +44,20 @@ export default class CategoriesService {
     return existingCategory;
   }
 
-  async deleteCategory(id: number) {
+  async deleteCategory(id: number, withFlush = true) {
     const category = await this.getCategoryById(id);
-    return this.categoryRepository.removeAndFlush(category);
+    this.categoryRepository.remove(category);
+    if (withFlush) {
+      return this.categoryRepository.flush();
+    }
+  }
+
+  async deleteCategoryWithPosts(categoryId: number) {
+    const allPosts = await this.postsService.getPostsFromCategory(categoryId);
+    for (const post of allPosts) {
+      await this.postsService.deletePost(post.id, false);
+    }
+    await this.deleteCategory(categoryId);
+    return this.entityManager.flush();
   }
 }

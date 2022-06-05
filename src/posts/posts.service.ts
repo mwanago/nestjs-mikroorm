@@ -47,8 +47,19 @@ export class PostsService {
     return existingPost;
   }
 
-  async deletePost(id: number) {
+  async getPostsFromCategory(categoryId: number) {
+    return this.postRepository.find({
+      categories: {
+        id: categoryId,
+      },
+    });
+  }
+
+  async deletePost(id: number, withFlush = true) {
     const post = await this.getPostById(id);
-    return this.postRepository.removeAndFlush(post);
+    this.postRepository.remove(post);
+    if (withFlush) {
+      return this.postRepository.flush();
+    }
   }
 }

@@ -229,11 +229,30 @@
           "primary": false,
           "nullable": false,
           "mappedType": "integer"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
         }
       },
       "name": "post_entity",
       "schema": "public",
       "indexes": [
+        {
+          "columnNames": [
+            "deleted_at"
+          ],
+          "composite": false,
+          "keyName": "post_entity_deleted_at_index",
+          "primary": false,
+          "unique": false
+        },
         {
           "keyName": "post_entity_pkey",
           "columnNames": [

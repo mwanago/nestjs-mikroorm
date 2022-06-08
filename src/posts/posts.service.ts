@@ -62,4 +62,10 @@ export class PostsService {
       return this.postRepository.flush();
     }
   }
+
+  async softDeletePost(id: number) {
+    const existingPost = await this.getPostById(id);
+    existingPost.deletedAt = new Date();
+    await this.postRepository.persistAndFlush(existingPost);
+  }
 }

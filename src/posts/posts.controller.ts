@@ -51,6 +51,6 @@ export default class PostsController {
   @Delete(':id')
   @UseGuards(JwtAuthenticationGuard)
   async deletePost(@Param() { id }: FindOneParams) {
-    return this.postsService.deletePost(Number(id));
+    return this.postsService.softDeletePost(id);
   }
 }

@@ -63,6 +63,25 @@ export class PostsService {
     }
   }
 
+  async getDeletedPost(id: number) {
+    const post = await this.postRepository.findOne(
+      {
+        id,
+      },
+      {
+        filters: {
+          softDelete: {
+            getOnlyDeleted: true,
+          },
+        },
+      },
+    );
+    if (!post) {
+      throw new PostNotFoundException(id);
+    }
+    return post;
+  }
+
   async softDeletePost(id: number) {
     const existingPost = await this.getPostById(id);
     existingPost.deletedAt = new Date();

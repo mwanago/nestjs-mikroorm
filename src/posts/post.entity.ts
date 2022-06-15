@@ -13,6 +13,7 @@ import WithSoftDelete from '../utils/withSoftDelete';
 
 @Entity()
 @WithSoftDelete()
+@Index({ properties: ['author', 'deletedAt'] })
 class PostEntity {
   @PrimaryKey()
   id: number;

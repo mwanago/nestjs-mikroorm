@@ -263,6 +263,16 @@
           "unique": false
         },
         {
+          "keyName": "post_entity_author_id_deleted_at_index",
+          "columnNames": [
+            "author_id",
+            "deleted_at"
+          ],
+          "composite": true,
+          "primary": false,
+          "unique": false
+        },
+        {
           "keyName": "post_entity_pkey",
           "columnNames": [
             "id"

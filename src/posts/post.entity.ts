@@ -24,6 +24,7 @@ class PostEntity {
   content: string;
 
   @ManyToOne()
+  @Index()
   author: User;
 
   @ManyToMany(() => Category)

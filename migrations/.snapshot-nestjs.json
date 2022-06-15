@@ -246,6 +246,15 @@
       "indexes": [
         {
           "columnNames": [
+            "author_id"
+          ],
+          "composite": false,
+          "keyName": "post_entity_author_id_index",
+          "primary": false,
+          "unique": false
+        },
+        {
+          "columnNames": [
             "deleted_at"
           ],
           "composite": false,

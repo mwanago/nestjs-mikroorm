@@ -82,6 +82,12 @@ export class PostsService {
     return post;
   }
 
+  async softDeletePost(id: number) {
+    const existingPost = await this.getPostById(id);
+    existingPost.deletedAt = new Date();
+    await this.postRepository.persistAndFlush(existingPost);
+  }
+
   async restorePost(id: number) {
     const existingPost = await this.getDeletedPost(id);
     existingPost.deletedAt = null;
